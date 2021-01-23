@@ -65,7 +65,7 @@ return result
 
 observed_emotions=['calm', 'happy', 'fearful', 'disgust']
 ```
-### 4.Load the Dataset
+### 4.  Load the Dataset
 Now, let’s load the data with a function load_data() – this takes in the relative size of the test set as parameter. x and y are empty lists; we’ll use the glob() function from the glob module to get all the pathnames for the sound files in our dataset. Using our emotions dictionary, this number is turned into an emotion, and our function checks whether this emotion is in our list of observed_emotions; if not, it continues to the next file. It makes a call to extract_feature and stores what is returned in ‘feature’. Then, it appends the feature to x and the emotion to y. So, the list x holds the features and y holds the emotions. We call the function train_test_split with these, the test size, and a random state value, and return that.
 
 ```
@@ -81,7 +81,7 @@ def load_data(test_size=0.2):
         y.append(emotion)
     return train_test_split(np.array(x), y, test_size=test_size, random_state=9)
 ````
-### 5. split the dataset into train and test
+### 5. Split the dataset into train and test
 
    Time to split the dataset into training and testing sets! Let’s keep the test set 25% of everything and use the load_data function for this.
    ```
