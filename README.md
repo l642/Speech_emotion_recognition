@@ -23,6 +23,29 @@ from sklearn.metrics import accuracy_score
   chroma: Pertains to the 12 different pitch classes
   
   mel: Mel Spectrogram Frequency
- Open the sound file with soundfile.SoundFile using with-as so it’s automatically closed once we’re done. Read from it and call it X. Also, get the sample rate. If chroma is True, get the Short-Time Fourier Transform of X.
+ Open the sound file with soundfile.
+ 
+ SoundFile using with-as so it’s automatically closed once we’re done. Read from it and call it X. Also, get the sample rate. If chroma is True, get the Short-Time Fourier Transform of X.
 
 Let result be an empty numpy array. Now, for each feature of the three, if it exists, make a call to the corresponding function from librosa.feature (eg- librosa.feature.mfcc for mfcc), and get the mean value. Call the function hstack() from numpy with result and the feature value, and store this in result. hstack() stacks arrays in sequence horizontally (in a columnar fashion). Then, return the result.
+
+```
+def extract_feature(file_name, mfcc, chroma, mel):
+    with soundfile.SoundFile(file_name) as sound_file:
+        X = sound_file.read(dtype="float32")
+        sample_rate=sound_file.samplerate
+        if chroma:
+            stft=np.abs(librosa.stft(X))
+        result=np.array([])
+        if mfcc:
+            mfccs=np.mean(librosa.feature.mfcc(y=X, sr=sample_rate, n_mfcc=40).T, axis=0)
+            result=np.hstack((result, mfccs))
+        if chroma:
+            chroma=np.mean(librosa.feature.chroma_stft(S=stft, sr=sample_rate).T,axis=0)
+            result=np.hstack((result, chroma))
+if mel:
+            mel=np.mean(librosa.feature.melspectrogram(X, sr=sample_rate).T,axis=0)
+            result=np.hstack((result, mel))
+return result
+```
+
