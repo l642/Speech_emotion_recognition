@@ -66,9 +66,7 @@ return result
 observed_emotions=['calm', 'happy', 'fearful', 'disgust']
 ```
 ### 4.Load the Dataset
-Now, let’s load the data with a function load_data() – this takes in the relative size of the test set as parameter. x and y are empty lists; we’ll use the glob() function from the glob module to get all the pathnames for the sound files in our dataset.
-
-Using our emotions dictionary, this number is turned into an emotion, and our function checks whether this emotion is in our list of observed_emotions; if not, it continues to the next file. It makes a call to extract_feature and stores what is returned in ‘feature’. Then, it appends the feature to x and the emotion to y. So, the list x holds the features and y holds the emotions. We call the function train_test_split with these, the test size, and a random state value, and return that.
+Now, let’s load the data with a function load_data() – this takes in the relative size of the test set as parameter. x and y are empty lists; we’ll use the glob() function from the glob module to get all the pathnames for the sound files in our dataset. Using our emotions dictionary, this number is turned into an emotion, and our function checks whether this emotion is in our list of observed_emotions; if not, it continues to the next file. It makes a call to extract_feature and stores what is returned in ‘feature’. Then, it appends the feature to x and the emotion to y. So, the list x holds the features and y holds the emotions. We call the function train_test_split with these, the test size, and a random state value, and return that.
 
 ```
 def load_data(test_size=0.2):
@@ -82,10 +80,46 @@ def load_data(test_size=0.2):
         x.append(feature)
         y.append(emotion)
     return train_test_split(np.array(x), y, test_size=test_size, random_state=9)
-    ```
+````
+### 5. split the dataset into train and test
+
+   Time to split the dataset into training and testing sets! Let’s keep the test set 25% of everything and use the load_data function for this.
+   ```
+   x_train,x_test,y_train,y_test=load_data(test_size=0.25)
+   ```
+### 6. Build the MLP classifier Model
+Now, let’s initialize an MLPClassifier. This is a Multi-layer Perceptron Classifier; it optimizes the log-loss function using LBFGS or stochastic gradient descent. Unlike SVM or Naive Bayes, the MLPClassifier has an internal neural network for the purpose of classification. This is a feedforward ANN model.
+
+```
+model=MLPClassifier(alpha=0.01, batch_size=256, epsilon=1e-08, hidden_layer_sizes=(300,), learning_rate='adaptive', max_iter=500)
+model.fit(x_train,y_train)
+```
+### 7. Predict on test data set
+Let’s predict the values for the test set. This gives us y_pred (the predicted emotions for the features in the test set).
+```
+y_pred=model.predict(x_test)
+```
+### 8. calculate Accuracy
+To calculate the accuracy of our model, we’ll call up the accuracy_score() function we imported from sklearn. Finally, we’ll round the accuracy to 2 decimal places and print it out.
+```
+accuracy=accuracy_score(y_true=y_test, y_pred=y_pred)
+
+#DataFlair - Print the accuracy
+print("Accuracy: {:.2f}%".format(accuracy*100))
+```
+###  Conclusion
+In this Python  project, we learned to recognize emotions from speech. We used an MLPClassifier for this and made use of the soundfile library to read the sound file, and the librosa library to extract features from it. As you’ll see, the model delivered an accuracy of 72.9%. Since the dataset was less so accuracy is less. we can increase the accuracy by inceasing the dataset. 
+
+
+
+
+
+
+  
     
-### 4.
-    
+   
+   
+   
 
     
     
