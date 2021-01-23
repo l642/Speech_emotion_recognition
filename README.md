@@ -99,7 +99,7 @@ Let’s predict the values for the test set. This gives us y_pred (the predicted
 ```
 y_pred=model.predict(x_test)
 ```
-### 8. calculate Accuracy
+### 8. Calculate Accuracy
 To calculate the accuracy of our model, we’ll call up the accuracy_score() function we imported from sklearn. Finally, we’ll round the accuracy to 2 decimal places and print it out.
 ```
 accuracy=accuracy_score(y_true=y_test, y_pred=y_pred)
