@@ -65,4 +65,23 @@ return result
 
 observed_emotions=['calm', 'happy', 'fearful', 'disgust']
 ```
+### 4.Load the Dataset
+Now, let’s load the data with a function load_data() – this takes in the relative size of the test set as parameter. x and y are empty lists; we’ll use the glob() function from the glob module to get all the pathnames for the sound files in our dataset.
 
+Using our emotions dictionary, this number is turned into an emotion, and our function checks whether this emotion is in our list of observed_emotions; if not, it continues to the next file. It makes a call to extract_feature and stores what is returned in ‘feature’. Then, it appends the feature to x and the emotion to y. So, the list x holds the features and y holds the emotions. We call the function train_test_split with these, the test size, and a random state value, and return that.
+
+```
+def load_data(test_size=0.2):
+    x,y=[],[]
+    for file in glob.glob("D:\\DataFlair\\ravdess data\\Actor_*\\*.wav"):
+        file_name=os.path.basename(file)
+        emotion=emotions[file_name.split("-")[2]]
+        if emotion not in observed_emotions:
+            continue
+        feature=extract_feature(file, mfcc=True, chroma=True, mel=True)
+        x.append(feature)
+        y.append(emotion)
+    return train_test_split(np.array(x), y, test_size=test_size, random_state=9)
+    ````
+    
+    
