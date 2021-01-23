@@ -4,8 +4,7 @@ Speech Emotion Recognition (SER), is the act of attempting to recognize human em
 for this Python based project, we have used use the RAVDESS dataset; this is the Ryerson Audio-Visual Database of Emotional Speech and Song dataset.
 
 ### Steps for speech emotion recognition
-### 1.Import the necessary Libraries
-//
+```
 import librosa
 import soundfile
 import os, glob, pickle
@@ -13,4 +12,5 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
-///
+```
+
