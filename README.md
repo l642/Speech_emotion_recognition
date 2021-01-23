@@ -48,7 +48,7 @@ if mel:
             result=np.hstack((result, mel))
 return result
 ```
-### 3.Define the emotion available in dataset
+### 3.  Define the emotion available in dataset
  Now, let’s define a dictionary to hold numbers and the emotions available in the RAVDESS dataset, and a list to hold those we want- calm, happy, fearful, disgust.
  
  ```
