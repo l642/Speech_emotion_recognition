@@ -82,6 +82,10 @@ def load_data(test_size=0.2):
         x.append(feature)
         y.append(emotion)
     return train_test_split(np.array(x), y, test_size=test_size, random_state=9)
-    ````
+    ```
+    
+### 4.
+    
+
     
     
